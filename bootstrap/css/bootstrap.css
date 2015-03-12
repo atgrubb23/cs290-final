@@ -6566,7 +6566,7 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 body {
-  padding-top: 45px;
+  padding-top: 65px;
 }
 .navbar-right {
   padding-right: 40px;
@@ -6592,4 +6592,11 @@ body {
   margin: 5%;
   width: 90%;
 }
-
+.nav-dropdown-register {
+  display: block;
+  text-align: center;
+}
+.registration-field {
+  display: block;
+  width: 90%;
+}

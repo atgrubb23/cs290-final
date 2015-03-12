@@ -1,33 +1,56 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set('display_errors', 1);
+	if(empty($_POST['login'])) {
+		echo "false";
+		return;
+	}
 
-	if(isset($_POST['username']) && isset($_POST['password'])) {
+	elseif(empty($_POST['password'])) {
+		echo "false";
+		return;
+	}
+
+	elseif(isset($_POST['login']) && isset($_POST['password'])) {
 		include("connect_to_database.php");
 
-		$username = $_POST['username'];
+		$username = $_POST['login'];
 		$password = $_POST['password'];
+		$queryResults = array();
 
-		$statement = $myDb->prepare("SELECT id FROM Accounts WHERE username = ? AND password = ?;");
+		$statement = $myDb->prepare("SELECT id FROM Accounts WHERE userName = ? AND password = ?;");
 		$statement->bind_param('ss', $username, $password);
 		if(!$statement->execute()) {
-			echo "Failed to execute.";
+			echo "false";
+			return;
 		}
 
 		$statement->bind_result($id);
 		$statement->fetch();
-		$userId = $id;
+		$queryResults['id'] = $id;
 		$statement->close();
 
-		if(empty($userId)) {
-			echo "Login failed. Username/password does not exist";
+		if(empty($queryResults['id'])) {
+			echo "no id";
+			return;
 		}
-
+		
 		else {
-			echo "Login success!";
-
-			//do stuff
+			$statement = $myDb->prepare("SELECT summary, description, notes FROM Accounts WHERE userName = ?;");
+			$statement->bind_param('s', $username);
+			if(!$statement->execute()) {
+				echo "fail";
+				return;
+			}
+			
+			$statement->bind_result($summary, $description);
+			while($statement->fetch()) {
+				$queryResults['summary'] = $summary;
+				$queryResults['description'] = $description;
+				$queryResults['notes'] = $notes;
+			}
+			$statement->close();
+			echo json_encode($queryResults);
+			return;
 		}
 	}
-	
+	return;
 ?>
