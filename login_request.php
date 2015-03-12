@@ -1,15 +1,14 @@
 <?php
 	if(empty($_POST['login'])) {
 		echo "false";
-		return;
 	}
 
 	elseif(empty($_POST['password'])) {
 		echo "false";
-		return;
 	}
-
+	
 	elseif(isset($_POST['login']) && isset($_POST['password'])) {
+		
 		include("connect_to_database.php");
 
 		$username = $_POST['login'];
@@ -20,9 +19,8 @@
 		$statement->bind_param('ss', $username, $password);
 		if(!$statement->execute()) {
 			echo "false";
-			return;
 		}
-
+		
 		$statement->bind_result($id);
 		$statement->fetch();
 		$queryResults['id'] = $id;
@@ -51,6 +49,6 @@
 			echo json_encode($queryResults);
 			return;
 		}
+		
 	}
-	return;
 ?>

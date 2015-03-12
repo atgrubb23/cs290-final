@@ -117,20 +117,34 @@
 						$("#description-well").html(result.description);
 						$("#summary-well").html(result.summary);
 						$("#notes-well").html(result.notes);
+
+						$("#summaryButton").click(function() {
+							var summaryText = $("#summaryText").val();
+							$.post("https://web.engr.oregonstate.edu/~grubba/cs290/final/submit_content.php", {username:username, summaryContent:summaryText}, function(data) {
+								var result = JSON.parse(data);
+								$("#summary-well").html(result.summary);
+							});
+						});
+
+						$("#descriptionButton").click(function() {
+							var descriptionText = $("#descriptionText").val();
+							$.post("https://web.engr.oregonstate.edu/~grubba/cs290/final/submit_content.php", {username:username, descriptionContent:descriptionText}, function(data) {
+								var result = JSON.parse(data);
+								$("#description-well").html(result.description);
+							});
+						});
+						$("#notesButton").click(function() {
+							var notesText = $("#notesText").val();
+							$.post("https://web.engr.oregonstate.edu/~grubba/cs290/final/submit_content.php", {username:username, notesContent:notesText}, function(data) {
+								var result = JSON.parse(data);
+								$("#notes-well").html(result.notes);
+							});
+						});
 					}
 				});
 			}
 		});
-		$("#summaryButton").click(function() {
 
-		});
-
-		$("#descriptionButton").click(function() {
-			
-		});
-		$("#notesButton").click(function() {
-			
-		});
 
 		</script>
 	</body>
