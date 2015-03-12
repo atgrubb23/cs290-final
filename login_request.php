@@ -29,7 +29,7 @@
 		$statement->close();
 
 		if(empty($queryResults['id'])) {
-			echo "no id";
+			echo "false";
 			return;
 		}
 		
@@ -41,7 +41,7 @@
 				return;
 			}
 			
-			$statement->bind_result($summary, $description);
+			$statement->bind_result($summary, $description, $notes);
 			while($statement->fetch()) {
 				$queryResults['summary'] = $summary;
 				$queryResults['description'] = $description;

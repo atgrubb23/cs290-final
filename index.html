@@ -105,15 +105,18 @@
 						$("#loginSuccess").hide();
 						$("#loginFail").show();
 						$("#loginFail").html("Login failed! Username/Password combination does not exist.");
-						$("#loginFail").html(data);
 					}
 					else {
+						var result = JSON.parse(data);
 						$("#loginFail").hide();
 						$("#loginSuccess").show();
 						$("#loginSuccess").html("Login successful!");
 						$("#summary").show();
 						$("#description").show();
 						$("#notes").show();
+						$("#description-well").html(result.description);
+						$("#summary-well").html(result.summary);
+						$("#notes-well").html(result.notes);
 					}
 				});
 			}
